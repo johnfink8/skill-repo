@@ -186,6 +186,38 @@ Agents fail in ways that one-shot LLM calls do not: mid-loop crashes, deploys la
 - **Rainbow deploys for long-running agents** — don't kill an in-progress run by deploying. Drain workers first.
 - **Reproduce before fixing.** When an agent misbehaves, replay the failed run from logs/state before patching anything. Don't "fix" based on a one-line bug description when the trace is sitting in the logs. Same rule as unit tests and frontend bugs: reproduce → diagnose → fix → verify, in that order.
 
+## 12. Prompts live in `.md` files, not in code
+
+A prompt is content. Code that talks to an LLM should `read("prompts/foo.md")`, not embed a multi-line string literal that looks like markdown but is never rendered as markdown anywhere.
+
+Bad:
+```python
+SYSTEM_PROMPT = """
+You are a triage assistant.
+
+## Your task
+Read the incoming ticket and output JSON with...
+"""
+```
+
+Good:
+```python
+SYSTEM_PROMPT = (Path(__file__).parent / "prompts" / "triage_system.md").read_text()
+```
+
+What you gain:
+- **Your editor renders it.** Markdown in code is a triple-quoted blob; markdown in `.md` is what you actually wrote — headings, lists, code blocks rendered.
+- **Git diffs are readable.** A prompt edit in a `.md` file diffs cleanly. The same edit inside a Python triple-string is a blob diff.
+- **No escape hell.** Embedded quotes, backslashes, f-string `{` characters — none of it needs escaping in a real file.
+- **Non-engineers can read and edit it.** A designer or PM tweaking copy opens `prompts/welcome.md` in any editor — they don't need to learn how to dodge Python quoting.
+- **Cross-language reuse.** The same `prompts/triage.md` loads from Python and TypeScript. Triple-strings don't cross language boundaries.
+- **Versionable separately from code.** A prompt change is one commit; a logic change is another. The git history tells you which is which.
+- **Hot-reloadable.** With the prompt in a file, you can iterate without restarting the service.
+
+For templating: use Jinja, handlebars, or just `.format()` on the loaded content. The substitution layer is independent of where the prompt lives.
+
+The only case where embedding makes sense: a literal one-line instruction in a throwaway script. Anything multi-line, anything formatted, anything reused — it goes in a file.
+
 ## Security: the "Rule of Two"
 
 For any agent touching untrusted input (user content, web pages, third-party tool outputs), pick **at most two** of:
@@ -208,4 +240,5 @@ All three together is the lethal trifecta — a prompt injection in the untruste
 | Mega-prompt accuracy is 60% | 1 (workflow first) + 7 (decompose) |
 | Prompt injection exfiltrates customer data | Rule of Two |
 | "It used to work" but no one knows when it broke | 10 (evals) + 11 (observability) |
+| Multi-line prompt embedded as a `"""..."""` string in code | 12 — move to `prompts/<name>.md`, load via `read_text()` |
 
