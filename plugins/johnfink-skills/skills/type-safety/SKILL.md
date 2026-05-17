@@ -1,6 +1,6 @@
 ---
 name: type-safety
-description: Use when (a) a type error needs fixing, (b) `Any`/`any`/`unknown`/`object` or any cast (`as`, `as unknown as X`, `cast`, `# type: ignore`) is about to be written or has appeared in code being reviewed, (c) you're designing the shape of data crossing a boundary (API, service, frontend↔backend, third-party input), (d) you're choosing between a naked dict/object and a structured schema (pydantic, zod, dataclass, interface), (e) you're setting up a new typed project or adjusting tsconfig/mypy/pyright strictness, or (f) the user is asking about typing principles. NOT needed for plain edits that don't introduce, modify, or interact with types.
+description: "Use when (a) a type error needs fixing, (b) `Any`/`any`/`unknown`/`object` or any cast (`as`, `as unknown as X`, `cast`, `# type: ignore`) is about to be written or has appeared in code being reviewed, (c) you're designing the shape of data crossing a boundary (API, service, frontend↔backend, third-party input), (d) you're choosing between a naked dict/object and a structured schema (pydantic, zod, dataclass, interface), (e) you're setting up a new typed project or adjusting tsconfig/mypy/pyright strictness, or (f) the user is asking about typing principles. NOT needed for plain edits that don't introduce, modify, or interact with types."
 ---
 
 # Type safety

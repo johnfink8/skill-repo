@@ -1,6 +1,6 @@
 ---
 name: autonomy
-description: Use whenever you're about to ask the user to manually click, refresh, reproduce, or paste output — and when starting any new project, to plan verification infrastructure up front. The core rule: don't punt verification to the user when tools exist that let you do it yourself. Triggers on debugging from a user-reported error, building frontend features, "could you check whether...", and any moment you're tempted to outsource a verification step. Especially relevant for frontend work where browser automation (Playwright, Claude in Chrome, Puppeteer MCP) eliminates most "could you click and tell me what you see" handoffs.
+description: Use whenever you're about to ask the user to manually click, refresh, reproduce, or paste output — and when starting any new project, to plan verification infrastructure up front. Don't punt verification to the user when tools exist that let you do it yourself. Triggers on debugging from a user-reported error, building frontend features, 'could you check whether' moments, and anytime you're tempted to outsource a verification step. Especially relevant for frontend work where browser automation (Playwright, Claude in Chrome, Puppeteer MCP) eliminates most 'could you click and tell me what you see' handoffs.
 ---
 
 # Autonomy
