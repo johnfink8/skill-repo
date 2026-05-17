@@ -29,7 +29,13 @@ Verify with `/plugin` — you should see the `johnfink-skills` plugin and its sk
 
 Edit the `SKILL.md` files in `plugins/johnfink-skills/skills/`, commit, push. Bump `version` in `plugins/johnfink-skills/.claude-plugin/plugin.json` for meaningful changes.
 
-On other machines: `/plugin marketplace update johnfink` then `/plugin update johnfink-skills@johnfink`.
+On other machines:
+
+1. `/plugin marketplace update johnfink` — refresh the marketplace listing.
+2. Then update the installed plugin. There's no one-shot CLI for this:
+   - Easiest: open `/plugin`, go to the **Installed** tab, update from there.
+   - Or: `/plugin uninstall johnfink-skills@johnfink` then `/plugin install johnfink-skills@johnfink`.
+   - Or: enable auto-update on the marketplace (`/plugin` → **Marketplaces** tab) so future versions pull at startup.
 
 ## Layout
 
