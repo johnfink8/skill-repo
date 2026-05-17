@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "johnfink",
+  "description": "Personal skills marketplace — engineering preferences and methodologies.",
+  "owner": {
+    "name": "johnfink8"
+  },
+  "plugins": [
+    {
+      "name": "johnfink-skills",
+      "description": "Personal skills bundle: trial discipline, pytest/e2e/type-safety methodology, formatting standards, commit preferences.",
+      "author": {
+        "name": "johnfink8"
+      },
+      "category": "development",
+      "source": "./plugins/johnfink-skills"
+    }
+  ]
+}

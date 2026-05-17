@@ -1,0 +1,8 @@
+{
+  "name": "johnfink-skills",
+  "version": "0.1.0",
+  "description": "Personal engineering skills: trial discipline, pytest/e2e/type-safety methodology, formatting standards, commit preferences.",
+  "author": {
+    "name": "johnfink8"
+  }
+}
