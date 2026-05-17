@@ -1,5 +1,5 @@
 {
-  "description": "Inject the always-on house rules at every session start.",
+  "description": "Always-on house rules (SessionStart) + Bash anti-pattern enforcement (PreToolUse).",
   "hooks": {
     "SessionStart": [
       {
@@ -7,6 +7,18 @@
           {
             "type": "command",
             "command": "cat ${CLAUDE_PLUGIN_ROOT}/rules/house-rules.md"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/bash-anti-patterns.py",
+            "timeout": 5
           }
         ]
       }
