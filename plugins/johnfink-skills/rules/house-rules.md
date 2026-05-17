@@ -14,11 +14,15 @@ Give the actual trade-off, not *"I was lazy"*. If the honest answer is *"I didn'
 
 Default to writing **no** comments. Add one only when the WHY is non-obvious — a hidden constraint, a workaround for a specific bug, behavior that would surprise a reader. Comments that restate what the code already says are noise.
 
-Specifically never write:
-- Narration (`// initialize the variable`)
-- Task-naming (`// fix for issue #123` — that belongs in the commit message)
-- Bare `TODO` without a concrete next step or owner
-- Paraphrases of the function signature
-- Restatements of the next line of code
+**Comments describe what *is*, not what *was*. History lives in git, not in source.** This is the rule violated most often during refactors.
 
-The bar: would a future reader of this code be confused without this comment? If no, delete it.
+Specifically never write:
+- **Backward-looking history.** `// Replaces the old HTTP-POST design`, `// Was previously in foo.py`, `// Used to use Redis here`, `// Refactored from class-based to functional`. The diff records the change; the comment should describe the code that *exists*. If the historical context truly matters for future readers, it goes in the commit message or a design doc — never in the source.
+- **References to now-moved files.** `// See similar logic in old_handler.py` after `old_handler.py` is gone. If a referenced file no longer exists where the comment claims, delete the comment.
+- Narration (`// initialize the variable`).
+- Task-naming (`// fix for issue #123` — that belongs in the commit message).
+- Bare `TODO` without a concrete next step or owner.
+- Paraphrases of the function signature.
+- Restatements of the next line of code.
+
+The bar: would a future reader of this code be confused without this comment? If no, delete it. If yes, the comment should describe the code that's currently in front of them — not how it got there.
