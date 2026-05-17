@@ -1,0 +1,15 @@
+{
+  "description": "Inject the always-on house rules at every session start.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat ${CLAUDE_PLUGIN_ROOT}/rules/house-rules.md"
+          }
+        ]
+      }
+    ]
+  }
+}
