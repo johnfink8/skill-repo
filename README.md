@@ -29,6 +29,10 @@ Verify with `/plugin` — you should see the `johnfink-skills` plugin and its sk
 
 A `SessionStart` hook injects [`plugins/johnfink-skills/rules/house-rules.md`](plugins/johnfink-skills/rules/house-rules.md) into context at the start of every session. These are the rules that apply regardless of task — transparency about shortcuts, comment hygiene, how to respond to "why did you do X this way?" — and live as a hook because their trigger condition is "always," not "matches description."
 
+### Why a hook instead of CLAUDE.md?
+
+CLAUDE.md isn't plugin-able. Marketplaces ship skills, hooks, agents, and commands — not CLAUDE.md content. Even if they could, CLAUDE.md often holds per-machine configuration that shouldn't be clobbered: things like *"you're in a Docker container, don't try to spawn Docker"*, *"pyright lives at this nonstandard path"*, or project-specific facts that don't belong in a portable marketplace. A `SessionStart` hook ships the always-on rules without touching CLAUDE.md, so portable guidance and local config coexist cleanly.
+
 ## Updating
 
 Edit the `SKILL.md` files in `plugins/johnfink-skills/skills/`, commit, push. Bump `version` in `plugins/johnfink-skills/.claude-plugin/plugin.json` for meaningful changes.
