@@ -17,6 +17,8 @@ If the type checker complains, it has either found a real bug or found a place w
 
 **Python: `# type: ignore` is almost never okay.** Same rule as `as`. If you must, use `# type: ignore[specific-code]` not a bare `# type: ignore`, and leave a comment explaining the reason. `cast(X, value)` is the Python analogue of `as` — same standard applies.
 
+**Python: don't prefix names with `_`.** Python has no access modifiers — a leading underscore doesn't make a function or method private. What it *does* do is silence pyright/ruff "unused symbol" warnings. That side effect is poison even when you don't realize you're triggering it: if you stop calling `_helper()` later, the linter won't tell you, and the dead code stays. Plain names get plain linter coverage. If the linter says a function is unused right now, delete the function — don't underscore it.
+
 ## 2. `Any`, `unknown`, `object` are not a hierarchy — they're all admissions of defeat
 
 There is a popular framing that goes `Any` < `unknown` < `object` < specific types, suggesting that `unknown` is the "good escape hatch." That framing is wrong in the cases that actually matter.
